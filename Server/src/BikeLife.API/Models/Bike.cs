@@ -1,9 +1,8 @@
 ﻿using BikeLife.Service.Models;
-using Newtonsoft.Json;
 
 namespace BikeLife.API.Models
 {
-    public class BikesModel
+    public class Bike
     {
         public long LastUpdated { get; set; }
 
@@ -11,8 +10,6 @@ namespace BikeLife.API.Models
 
         public int TotalCount { get; set; }
 
-        public bool? NextPage { get; set; }
-
-        public List<BikeData> Items { get; set; }
+        public BikeData Item { get; set; }
     }
 }

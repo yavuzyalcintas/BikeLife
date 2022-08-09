@@ -11,6 +11,8 @@ namespace BikeLife.Service.Proxies.Bike
     public interface IBikeProxyService
     {
         Task<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>> GetBikesAsync(GetBikesProxyRequest request);
+
+        Task<BikeProxyPaginationBaseResponse<GetBikeProxyResponse>> GetBikeAsync(string bikeId);
     }
 
     public class BikeProxyService : IBikeProxyService
@@ -33,7 +35,6 @@ namespace BikeLife.Service.Proxies.Bike
                 {
                     var contentStream = await response.Content.ReadAsStringAsync();
 
-                    //TODO: ERROR! Cannot map at single item response
                     result = JsonConvert.DeserializeObject<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>>(contentStream);
 
                     if (result?.Data == null)
@@ -42,6 +43,30 @@ namespace BikeLife.Service.Proxies.Bike
 
                 if (result == null)
                     throw new Exception("Bikes not found.");
+
+                return result;
+            }
+        }
+
+        public async Task<BikeProxyPaginationBaseResponse<GetBikeProxyResponse>> GetBikeAsync(string bikeId)
+        {
+            string query = $"/items?bike_id={bikeId}";
+
+            using (var response = await _bikeProxyHttpClient.Client.GetAsync(query))
+            {
+                BikeProxyPaginationBaseResponse<GetBikeProxyResponse>? result = null;
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentStream = await response.Content.ReadAsStringAsync();
+
+                    result = JsonConvert.DeserializeObject<BikeProxyPaginationBaseResponse<GetBikeProxyResponse>>(contentStream);
+
+                    if (result?.Data == null)
+                        throw new Exception("GetBike returns error.");
+                }
+
+                if (result == null)
+                    throw new Exception("Bike not found.");
 
                 return result;
             }

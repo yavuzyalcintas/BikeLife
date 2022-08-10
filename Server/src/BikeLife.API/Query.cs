@@ -8,7 +8,7 @@ namespace BikeLife.API
     {
         public async Task<Bikes> GetBikes([Service] IBikeProxyService bikeProxyService, GetBikesProxyRequest? input)
         {
-            var response = await bikeProxyService.GetBikesAsync(new GetBikesProxyRequest { VehicleType = input?.VehicleType, Page = input?.Page });
+            var response = await bikeProxyService.GetBikesAsync(input);
             return new Bikes
             {
                 Items = response.Data.Bikes,
@@ -19,9 +19,9 @@ namespace BikeLife.API
             };
         }
 
-        public async Task<Bike> GetBike([Service] IBikeProxyService bikeProxyService, string bikeId)
+        public async Task<Bike> GetBike([Service] IBikeProxyService bikeProxyService, string id)
         {
-            var response = await bikeProxyService.GetBikeAsync(bikeId);
+            var response = await bikeProxyService.GetBikeAsync(id);
             return new Bike
             {
                 Item = response.Data.Bike,

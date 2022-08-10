@@ -10,7 +10,7 @@ namespace BikeLife.Service.Proxies.Bike
 {
     public interface IBikeProxyService
     {
-        Task<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>> GetBikesAsync(GetBikesProxyRequest request);
+        Task<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>> GetBikesAsync(GetBikesProxyRequest? request);
 
         Task<BikeProxyPaginationBaseResponse<GetBikeProxyResponse>> GetBikeAsync(string bikeId);
     }
@@ -24,9 +24,9 @@ namespace BikeLife.Service.Proxies.Bike
             _bikeProxyHttpClient = bikeProxyHttpClient;
         }
 
-        public async Task<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>> GetBikesAsync(GetBikesProxyRequest request)
+        public async Task<BikeProxyPaginationBaseResponse<GetBikesProxyResponse>> GetBikesAsync(GetBikesProxyRequest? request)
         {
-            string query = $"/items?{request.GetQueryString()}";
+            string query = $"/items?{request?.GetQueryString()}";
 
             using (var response = await _bikeProxyHttpClient.Client.GetAsync(query))
             {

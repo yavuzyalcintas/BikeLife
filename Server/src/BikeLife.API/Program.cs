@@ -16,6 +16,7 @@ builder.Services.AddHttpClient<IBikeProxyHttpClient, BikeProxyHttpClient>();
 
 builder.Services.AddGraphQLServer()
                     .AddQueryType<Query>()
+                    .AddMutationType<Mutation>()
                     .AddProjections()
                     .AddFiltering()
                     .AddSorting();

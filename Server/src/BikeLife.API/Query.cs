@@ -11,7 +11,7 @@ namespace BikeLife.API
             var response = await bikeProxyService.GetBikesAsync(input);
             return new Bikes
             {
-                Items = response.Data.Bikes,
+                Items = response.Data?.Bikes,
                 LastUpdated = response.LastUpdated,
                 NextPage = response.NextPage,
                 TotalCount = response.TotalCount,
@@ -24,7 +24,7 @@ namespace BikeLife.API
             var response = await bikeProxyService.GetBikeAsync(id);
             return new Bike
             {
-                Item = response.Data.Bike,
+                Item = response.Data?.Bike,
                 LastUpdated = response.LastUpdated,
                 TotalCount = response.TotalCount,
                 Ttl = response.Ttl,

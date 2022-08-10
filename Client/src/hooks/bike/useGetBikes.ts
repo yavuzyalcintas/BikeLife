@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Bikes } from "../../common/interfaces/bikes.interface";
+import { BikesQuery } from "../../common/interfaces/bikes.interface";
 
 const GET_BIKES = gql`
 query GetBikes($input: GetBikesProxyRequestInput){
@@ -7,6 +7,7 @@ query GetBikes($input: GetBikesProxyRequestInput){
         nextPage
         ttl
         lastUpdated
+        totalCount
         items {
             bikeId
             vehicleType
@@ -16,10 +17,9 @@ query GetBikes($input: GetBikesProxyRequestInput){
 }
 `
 
-export const useGetBikes = (page?: number, vehicleType?: string) : Bikes | undefined => {
-    const { data } = useQuery(GET_BIKES, {
+
+export const useGetBikes = (page?: number, vehicleType?: string)  => {
+    return useQuery<BikesQuery>(GET_BIKES, {
         variables: {input: {page: page, vehicleType: vehicleType}}
     });
-
-    return data?.bikes;
 }

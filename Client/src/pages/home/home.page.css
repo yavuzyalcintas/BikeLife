@@ -5,3 +5,11 @@
 .home h1{
     margin-bottom: 25px;
 }
+
+.pagination-button{
+    margin-top: 15px;
+    height: 50px;
+    padding: 20px 80px 20px 80px;
+    font-size: 30px;
+    line-height: 10px;
+}

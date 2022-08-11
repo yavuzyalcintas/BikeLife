@@ -1,11 +1,13 @@
 ﻿using BikeLife.API.Models;
 using BikeLife.Service.Models.Request;
 using BikeLife.Service.Proxies.Bike;
+using HotChocolate.AspNetCore.Authorization;
 
 namespace BikeLife.API
 {
     public class Query
     {
+        [Authorize]
         public async Task<Bikes> GetBikes([Service] IBikeProxyService bikeProxyService, GetBikesProxyRequest? input)
         {
             var response = await bikeProxyService.GetBikesAsync(input);
@@ -19,6 +21,7 @@ namespace BikeLife.API
             };
         }
 
+        [Authorize]
         public async Task<Bike> GetBike([Service] IBikeProxyService bikeProxyService, string id)
         {
             var response = await bikeProxyService.GetBikeAsync(id);

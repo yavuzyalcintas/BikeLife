@@ -12,9 +12,14 @@ interface FormData {
 
 const HomePage: React.FC = () => {
   const [page, setPage] = useState<number>(1);
+  const [vehicleType, setVehicleType] = useState<string>("");
+  const [bikeId, setBikeId] = useState<string>("");
   const [ttl, setTtl] = useState<number>(-1);
-  const { data, refetch, loading, startPolling, stopPolling } =
-    useGetBikes(page);
+  const { data, loading, fetchMore, startPolling, stopPolling } = useGetBikes(
+    page,
+    vehicleType,
+    bikeId
+  );
 
   // TTL Timer
   useEffect(() => {
@@ -48,8 +53,20 @@ const HomePage: React.FC = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit(({ bikeId, vehicleType }) => {
     setPage(1);
-    console.log(bikeId, vehicleType);
-    //refetch({ variables: { input: { vehicleType } } });
+    setVehicleType(vehicleType);
+    setBikeId(bikeId);
+    fetchMore({
+      variables: {
+        input: {
+          vehicleType,
+          page,
+          bikeId,
+        },
+      },
+      updateQuery(_, { fetchMoreResult }) {
+        return fetchMoreResult;
+      },
+    });
   });
 
   return (
@@ -85,9 +102,11 @@ const HomePage: React.FC = () => {
       ) : (
         <>
           <BikesGrid bikes={data?.bikes.items || []} ttl={ttl} />
-          <Button variant="warning" size="lg" onClick={nextPage}>
-            Page: {page}/{(data?.bikes.totalCount || 10) / 10}
-          </Button>
+          {(data?.bikes.totalCount || 9) >= 10 && data?.bikes.items && (
+            <Button variant="warning" size="lg" onClick={nextPage}>
+              Page: {page}/{Math.floor((data?.bikes.totalCount || 10) / 10)}
+            </Button>
+          )}
         </>
       )}
     </div>

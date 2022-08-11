@@ -18,8 +18,8 @@ query GetBikes($input: GetBikesProxyRequestInput){
 `
 
 
-export const useGetBikes = (page?: number, vehicleType?: string)  => {
+export const useGetBikes = (page?: number, vehicleType?: string, bikeId?: string)  => {
     return useQuery<BikesQuery>(GET_BIKES, {
-        variables: {input: {page: page, vehicleType: vehicleType}}
+        variables: {input: {page, vehicleType, bikeId}},
     });
 }

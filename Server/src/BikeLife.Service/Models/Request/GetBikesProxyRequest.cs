@@ -7,5 +7,8 @@ namespace BikeLife.Service.Models.Request
     {
         [JsonProperty("vehicle_type")]
         public string? VehicleType { get; set; }
+
+        [JsonProperty("bike_id")]
+        public string? BikeId { get; set; }
     }
 }

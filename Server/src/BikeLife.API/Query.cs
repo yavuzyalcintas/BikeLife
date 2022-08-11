@@ -10,6 +10,20 @@ namespace BikeLife.API
         [Authorize]
         public async Task<Bikes> GetBikes([Service] IBikeProxyService bikeProxyService, GetBikesProxyRequest? input)
         {
+            if (!string.IsNullOrEmpty(input.BikeId))
+            {
+                var singleResponse = await bikeProxyService.GetBikeAsync(input.BikeId);
+
+                return new Bikes
+                {
+                    Items = new List<Service.Models.BikeData> { singleResponse.Data.Bike },
+                    LastUpdated = singleResponse.LastUpdated,
+                    NextPage = false,
+                    TotalCount = 1,
+                    Ttl = singleResponse.Ttl,
+                };
+            }
+
             var response = await bikeProxyService.GetBikesAsync(input);
             return new Bikes
             {

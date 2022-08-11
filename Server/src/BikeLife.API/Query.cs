@@ -16,7 +16,7 @@ namespace BikeLife.API
 
                 return new Bikes
                 {
-                    Items = new List<Service.Models.BikeData> { singleResponse.Data.Bike },
+                    Items = new List<Service.Models.BikeData> { singleResponse.Data?.Bike },
                     LastUpdated = singleResponse.LastUpdated,
                     NextPage = false,
                     TotalCount = 1,

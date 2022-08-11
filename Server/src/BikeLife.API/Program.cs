@@ -16,10 +16,7 @@ builder.Services.AddHttpClient<IBikeProxyHttpClient, BikeProxyHttpClient>();
 
 builder.Services.AddGraphQLServer()
                     .AddQueryType<Query>()
-                    .AddMutationType<Mutation>()
-                    .AddProjections()
-                    .AddFiltering()
-                    .AddSorting();
+                    .AddMutationType<Mutation>();
 
 //services cors
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>

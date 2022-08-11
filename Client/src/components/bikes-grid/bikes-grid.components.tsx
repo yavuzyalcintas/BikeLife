@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import { Bike } from "../../common/interfaces/bike.interface";
 import BikesGridItem from "./bikes-grid-item/bikes-grid-item.component";
 import "./bikes-grid.component.css";
@@ -14,21 +15,39 @@ const BikesGrid: React.FC<BikesGridProps> = ({
 }: BikesGridProps) => {
   return (
     <div className="bikes-grid">
-      <div className="details">
-        <p>
-          Will refresh in: <b>{ttl}</b> seconds
-        </p>
-        <p>
-          Total Bookings of Listed Bikes:{" "}
-          {bikes.reduce(
-            (total, currentValue) =>
-              (total = total + currentValue.totalBookings),
-            0
-          )}
-        </p>
-      </div>
+      <Row>
+        <Col> </Col>
+        <Col className="details">
+          <p>
+            Will refresh in: <b>{ttl}</b> seconds
+          </p>
+          <p>
+            Total Bookings of Listed Bikes:{" "}
+            <b>
+              {bikes.reduce(
+                (total, currentValue) =>
+                  (total = total + currentValue.totalBookings),
+                0
+              )}
+            </b>
+          </p>
+        </Col>
+      </Row>
 
-      <h3>BikeId - VehicleType</h3>
+      <Row>
+        <Col>
+          <h3>
+            <b>BikeId</b>
+          </h3>
+        </Col>
+        <Col>
+          <h3>
+            <b>VehicleType</b>
+          </h3>
+        </Col>
+        <Col> </Col>
+      </Row>
+      <hr />
       {bikes.length == 0
         ? "Bikes not found"
         : bikes

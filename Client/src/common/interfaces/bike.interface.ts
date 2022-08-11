@@ -1,3 +1,13 @@
+export interface BikeQuery{
+    bike:BikeItem;
+}
+
+export interface BikeItem{
+    ttl: number
+    lastUpdated: Date
+    item: Bike
+}
+
 export interface Bike {
     bikeId: string
     lat?: number
@@ -9,3 +19,6 @@ export interface Bike {
     isReserved: boolean
     isDisabled: boolean
 }
+
+
+

@@ -2,6 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import client from "./common/apollo-client";
+import ProtectedRoutes from "./components/common/ProtectedRoutes";
 
 import Header from "./components/header/header.component";
 import HomePage from "./pages/home/home.page";
@@ -13,7 +14,10 @@ function App() {
       <BrowserRouter>
         <Header></Header>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<ProtectedRoutes />}>
+            <Route path="/" element={<HomePage />} />
+          </Route>
+
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

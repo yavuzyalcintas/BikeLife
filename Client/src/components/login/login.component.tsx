@@ -10,6 +10,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { Auth } from "../../common/interfaces/auth.interface";
 import { GET_TOKEN } from "../../hooks/useGetToken";
 
@@ -20,8 +21,9 @@ interface FormData {
 
 const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
-
   const { register, handleSubmit } = useForm<FormData>();
+  const navigate = useNavigate();
+
   const onSubmit = handleSubmit(({ username, password }) => {
     if (username && password) {
       getToken({
@@ -39,6 +41,8 @@ const Login: React.FC = () => {
     onCompleted: (data) => {
       setErrorMessage("");
       console.log(data); // the response
+      localStorage.setItem("token", data.token);
+      navigate("/");
     },
     onError: (error) => {
       setErrorMessage(error.message);
@@ -53,13 +57,13 @@ const Login: React.FC = () => {
             <div className="d-grid gap-2">
               <Form.Control
                 type="text"
-                placeholder="username"
+                placeholder="Username"
                 {...register("username")}
               />
 
               <Form.Control
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 {...register("password")}
               />
 
@@ -81,6 +85,10 @@ const Login: React.FC = () => {
               {errorMessage !== "" && (
                 <p className="text-danger">{errorMessage}</p>
               )}
+
+              <p className="text-center mt-5">
+                <b>Username:</b> admin - <b>Password:</b> admin
+              </p>
             </div>
           </Form>
         </Col>

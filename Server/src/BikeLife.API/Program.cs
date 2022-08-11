@@ -20,8 +20,6 @@ builder.Services.AddTransient<IIdentityService, IdentityService>();
 builder.Services.AddHttpClient<IBikeProxyHttpClient, BikeProxyHttpClient>();
 
 
-
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -37,8 +35,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["Auth:Audience"],
         ValidIssuer = builder.Configuration["Auth:Issuer"],
         RequireSignedTokens = false,
-        IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:IssuerSigningKey"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:IssuerSigningKey"]))
     };
 
     options.RequireHttpsMetadata = false;

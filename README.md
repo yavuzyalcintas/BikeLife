@@ -1,5 +1,13 @@
 # BikeLife
-BikeLife is a gateway application for converting RestAPI into GraphQL. And data represents with simple Vite-React-TS client.
+BikeLife is a gateway application for converting RestAPI into GraphQL. And data represents with simple Vite-React-TS client. 
+
+## Introduction
+### Server
+For starting the server application, go to ```Server/src/BikeLife.API``` directory in your terminal and run ```dotnet run``` command. You can test GraphQL service with Banana Cake Pop playground at
+https://localhost:7227/graphql/
+
+### Client
+For starting the client application, go to ```Client/``` directory in your terminal and run ```npm run dev``` command. You can test React application at http://127.0.0.1:5173/
 
 ## Tech Stack
 - Dotnet Core 6
@@ -7,6 +15,7 @@ BikeLife is a gateway application for converting RestAPI into GraphQL. And data 
   
 - Vite React-TS
   - Apollo Client
+  - Bootstrap
 
 ## Features
 - Bike Listing and pagination
